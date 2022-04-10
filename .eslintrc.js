@@ -24,6 +24,14 @@ module.exports = {
             }
         ],
         quotes: ["error", "double", { allowTemplateLiterals: true }],
-        "react/jsx-indent": [2, "tab"]
+        "react/jsx-indent": [0, "tab"],
+        "comma-dangle": ["error", "never"],
+        "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+        "react/function-component-definition": [
+            2,
+            { namedComponents: ["function-declaration", "arrow-function"] }
+        ],
+        "arrow-body-style": 0,
+        "object-curly-newline": 0
     }
 };
