@@ -1,12 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./product.css";
+import config from "../../config.json";
 
 const Product = ({ name, price, img }) => {
+    console.log(img);
     return (
         <div className="products__card">
             <div className="products__content">
-                <img src={img} alt="" className="products__img" />
+                <img
+                    src={config.assetsEndpoint + img}
+                    alt=""
+                    className="products__img"
+                />
                 <h3 className="products__title">{name}</h3>
                 <span className="products__price">${price}</span>
                 <button

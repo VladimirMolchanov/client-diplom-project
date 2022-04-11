@@ -1,16 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { getProducts } from "../../store/products";
 import Product from "../ui/product";
-import img from "../../assets/img/product1.png";
 
 const Products = () => {
-    const products = [
-        {
-            _id: "0101",
-            name: "Twilight",
-            price: "249",
-            img
-        }
-    ];
+    // const dispatch = useDispatch();
+
+    const products = useSelector(getProducts());
 
     return (
         <section className="products section">
