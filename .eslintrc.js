@@ -31,7 +31,14 @@ module.exports = {
             2,
             { namedComponents: ["function-declaration", "arrow-function"] }
         ],
+        "react/jsx-indent-props": [2, 4],
         "arrow-body-style": 0,
-        "object-curly-newline": 0
+        "object-curly-newline": 0,
+        "react/self-closing-comp": 0,
+        "react/jsx-one-expression-per-line": 0,
+        "react/require-default-props": 0,
+        "operator-linebreak": 0,
+        "no-underscore-dangle": 0,
+        "react/jsx-props-no-spreading": 0
     }
 };

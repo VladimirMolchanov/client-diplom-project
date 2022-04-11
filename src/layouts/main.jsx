@@ -1,7 +1,8 @@
 import React from "react";
+import Header from "../components/common/header";
 
 const Main = () => {
-    return <h1>Main Layout</h1>;
+    return <Header />;
 };
 
 export default Main;
