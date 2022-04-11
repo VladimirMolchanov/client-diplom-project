@@ -39,6 +39,11 @@ module.exports = {
         "react/require-default-props": 0,
         "operator-linebreak": 0,
         "no-underscore-dangle": 0,
-        "react/jsx-props-no-spreading": 0
+        "react/jsx-props-no-spreading": 0,
+        "no-param-reassign": 0,
+        "consistent-return": 0,
+        "import/no-named-as-default-member": 0,
+        "prefer-arrow-callback": 0,
+        "prefer-template": 0
     }
 };
