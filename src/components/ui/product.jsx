@@ -4,7 +4,6 @@ import "./product.css";
 import config from "../../config.json";
 
 const Product = ({ name, price, img }) => {
-    console.log(img);
     return (
         <div className="products__card">
             <div className="products__content">
