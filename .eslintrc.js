@@ -44,6 +44,7 @@ module.exports = {
         "consistent-return": 0,
         "import/no-named-as-default-member": 0,
         "prefer-arrow-callback": 0,
-        "prefer-template": 0
+        "prefer-template": 0,
+        "react/jsx-no-constructed-context-values": 0
     }
 };
