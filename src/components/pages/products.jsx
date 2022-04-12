@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { getProducts } from "../../store/products";
 import Product from "../ui/product";
@@ -11,12 +11,14 @@ import { usePagination } from "../../hooks/pagination";
 import Pagination from "../common/pagination";
 import paginate from "../../utils/paginate";
 import TextField from "../common/form/textField";
+import { addBasketProduct } from "../../store/basket";
 
 const Products = () => {
     const initialFilter = {
         category: [],
         colors: []
     };
+    const dispatch = useDispatch();
     const { currentPage, onPageChange, pageSize, setPagesSize } =
         usePagination();
 
@@ -67,6 +69,10 @@ const Products = () => {
     const products = useSelector(getProducts());
     const category = useSelector(getCategory());
     const colors = useSelector(getColors());
+
+    const handleAddProduct = (id) => {
+        dispatch(addBasketProduct(products.find((i) => i._id === id)));
+    };
 
     const fnFilter = (data) => {
         if (filter.colors.length > 0 || filter.category.length > 0) {
@@ -182,7 +188,11 @@ const Products = () => {
                     <div className="products__content grid">
                         {productsCrop &&
                             productsCrop.map((i) => (
-                                <Product key={i._id} {...i} />
+                                <Product
+                                    key={i._id}
+                                    {...i}
+                                    onShopping={handleAddProduct}
+                                />
                             ))}
                     </div>
                 </div>
