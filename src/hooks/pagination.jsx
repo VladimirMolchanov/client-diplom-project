@@ -11,12 +11,15 @@ const PaginationProvider = ({ children }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(1);
 
+    const setPagesSize = (size) => {
+        setPageSize(size);
+    };
     const onPageChange = (pageIndex) => {
         setCurrentPage(pageIndex);
     };
     return (
         <paginationContext.Provider
-            value={{ currentPage, onPageChange, pageSize, setPageSize }}
+            value={{ currentPage, onPageChange, pageSize, setPagesSize }}
         >
             {children}
         </paginationContext.Provider>
