@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import _ from "lodash";
 import { getProducts } from "../../store/products";
 import Product from "../ui/product";
 import "./products.css";
@@ -9,16 +10,41 @@ import { getColors } from "../../store/color";
 import { usePagination } from "../../hooks/pagination";
 import Pagination from "../common/pagination";
 import paginate from "../../utils/paginate";
+import TextField from "../common/form/textField";
 
 const Products = () => {
-    const { currentPage, onPageChange, pageSize, setPageSize } =
-        usePagination();
-    setPageSize(4);
-
-    const [filter, setFilter] = useState({
+    const initialFilter = {
         category: [],
         colors: []
-    });
+    };
+    const { currentPage, onPageChange, pageSize, setPagesSize } =
+        usePagination();
+
+    useEffect(() => {
+        setPagesSize(4);
+    }, []);
+
+    const [filter, setFilter] = useState(initialFilter);
+    const clearFilter = () => {
+        setFilter(initialFilter);
+    };
+
+    const [search, setSearch] = useState("");
+    const handleSearch = (text) => {
+        clearFilter();
+        setSearch(text.value);
+    };
+    const [sortBy, setSortBy] = useState({ path: "price", order: "asc" });
+    const handleSort = (item) => {
+        if (sortBy.path === item) {
+            setSortBy({
+                ...sortBy,
+                order: sortBy.order === "asc" ? "desc" : "asc"
+            });
+        } else {
+            setSortBy({ path: item, order: "asc" });
+        }
+    };
 
     const handleChange = (target) => {
         if (target) {
@@ -66,13 +92,24 @@ const Products = () => {
             );
         }
 
+        if (search) {
+            return data.filter((user) => {
+                const s = user.name.toLowerCase().match(search.toLowerCase());
+                return s && s.length !== 0;
+            });
+        }
+
         return data || [];
     };
 
     const filteredProducts = fnFilter(products);
     const count = filteredProducts.length;
-
-    const productsCrop = paginate(filteredProducts, currentPage, pageSize);
+    const sortedUsers = _.orderBy(
+        filteredProducts,
+        [sortBy.path],
+        [sortBy.order]
+    );
+    const productsCrop = paginate(sortedUsers, currentPage, pageSize);
 
     return (
         <section className="products section">
@@ -81,7 +118,26 @@ const Products = () => {
                     Beats by Dr. Dre
                 </h2>
 
-                <div className="products__header"></div>
+                <div className="products__header">
+                    <TextField
+                        label="Поиск"
+                        name="name"
+                        value={search}
+                        onChange={handleSearch}
+                    />
+                    <div className="search">
+                        Сортировка
+                        <span
+                            onClick={() => {
+                                handleSort("price");
+                            }}
+                        >
+                            {sortBy.order === "asc"
+                                ? `Сначала не дорогие`
+                                : `сначало дорогие`}
+                        </span>
+                    </div>
+                </div>
                 <div className="products__body grid">
                     <div className="products__filter">
                         <div className="filter__item">
