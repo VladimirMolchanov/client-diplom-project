@@ -45,6 +45,8 @@ module.exports = {
         "import/no-named-as-default-member": 0,
         "prefer-arrow-callback": 0,
         "prefer-template": 0,
-        "react/jsx-no-constructed-context-values": 0
+        "react/jsx-no-constructed-context-values": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0
     }
 };
