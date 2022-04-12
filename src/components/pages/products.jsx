@@ -6,8 +6,15 @@ import "./products.css";
 import { getCategory } from "../../store/category";
 import CheckBoxField from "../common/form/checkBoxField";
 import { getColors } from "../../store/color";
+import { usePagination } from "../../hooks/pagination";
+import Pagination from "../common/pagination";
+import paginate from "../../utils/paginate";
 
 const Products = () => {
+    const { currentPage, onPageChange, pageSize, setPageSize } =
+        usePagination();
+    setPageSize(4);
+
     const [filter, setFilter] = useState({
         category: [],
         colors: []
@@ -59,10 +66,13 @@ const Products = () => {
             );
         }
 
-        return data;
+        return data || [];
     };
 
-    const filtered = fnFilter(products);
+    const filteredProducts = fnFilter(products);
+    const count = filteredProducts.length;
+
+    const productsCrop = paginate(filteredProducts, currentPage, pageSize);
 
     return (
         <section className="products section">
@@ -114,11 +124,20 @@ const Products = () => {
                         </div>
                     </div>
                     <div className="products__content grid">
-                        {filtered &&
-                            filtered.map((i) => <Product key={i._id} {...i} />)}
+                        {productsCrop &&
+                            productsCrop.map((i) => (
+                                <Product key={i._id} {...i} />
+                            ))}
                     </div>
                 </div>
-                <div className="products__footer"></div>
+                <div className="products__footer">
+                    <Pagination
+                        onPageChange={onPageChange}
+                        itemsCount={count}
+                        currentPage={currentPage}
+                        pageSize={pageSize}
+                    />
+                </div>
             </div>
         </section>
     );
