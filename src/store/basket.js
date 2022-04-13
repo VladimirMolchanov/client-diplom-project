@@ -11,6 +11,12 @@ const basketSlice = createSlice({
             state.entities =
                 JSON.parse(localStorageService.get("basket")) || [];
         },
+        deleteProduct: (state, action) => {
+            state.entities = state.entities.filter(
+                (product) => product._id !== action.payload
+            );
+            localStorageService.set("basket", JSON.stringify(state.entities));
+        },
         addProduct: (state, action) => {
             const index = state.entities.findIndex(
                 (i) => i._id === action.payload._id
@@ -30,10 +36,13 @@ const basketSlice = createSlice({
 });
 
 const { reducer: basketReducer, actions } = basketSlice;
-const { addProduct, getStorageBasket } = actions;
+const { addProduct, getStorageBasket, deleteProduct } = actions;
 
 export const loadBasketList = () => (dispatch) => {
     dispatch(getStorageBasket());
+};
+export const deleteBasketProduct = (id) => (dispatch) => {
+    dispatch(deleteProduct(id));
 };
 
 export const addBasketProduct = (product) => (dispatch) => {
