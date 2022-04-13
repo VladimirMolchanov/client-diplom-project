@@ -1,9 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/logo.png";
 import "./header.css";
+import { getBasket } from "../../store/basket";
 
 const Header = () => {
+    const basket = useSelector(getBasket());
+    const totalPrice = basket.reduce(
+        (price, product) => price + product.price * product.count,
+        0
+    );
+
     return (
         <header className="header">
             <nav className="nav container">
@@ -37,6 +45,15 @@ const Header = () => {
                             </Link>
                         </li>
                     </ul>
+                    <Link to="/basket">
+                        <div className="nav__basket" id="nav-toggle">
+                            <div className="price">{totalPrice}</div>
+                            <div className="icon">
+                                <i className="ri-shopping-bag-3-line" />
+                                <span className="badge">{basket.length}</span>
+                            </div>
+                        </div>
+                    </Link>
 
                     <div className="nav__close">
                         <i className="ri-close-line" />
