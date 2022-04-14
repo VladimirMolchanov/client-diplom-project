@@ -5,6 +5,7 @@ import Main from "./layouts/main";
 import Products from "./layouts/products";
 import AppLoader from "./components/ui/hoc/app.Loader";
 import Basket from "./layouts/basket";
+import Login from "./layouts/login";
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
             <Switch>
                 <Route path="/products" component={Products} />
                 <Route path="/basket" component={Basket} />
+                <Route path="/login/:type?" component={Login} />
                 <Route path="/" exact component={Main} />
                 <Redirect to="/" />
             </Switch>
