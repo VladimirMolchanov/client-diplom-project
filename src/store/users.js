@@ -9,7 +9,7 @@ const initialState = {
     auth: localStorageService.getAccessToken()
         ? localStorageService.getUserId()
         : null,
-    isLoggedIn: false
+    isLoggedIn: !!localStorageService.getAccessToken()
 };
 
 const usersSlice = createSlice({
