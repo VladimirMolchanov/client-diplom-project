@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import TextField from "../common/form/textField";
 import validator from "../../utils/validator";
+import { singUp } from "../../store/users";
 
 const RegisterForm = () => {
+    const dispatch = useDispatch();
+
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -65,11 +69,8 @@ const RegisterForm = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const newData = {
-            ...data
-        };
 
-        console.log(newData);
+        dispatch(singUp(data));
     };
 
     useEffect(() => {

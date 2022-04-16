@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import TextField from "../common/form/textField";
 import validator from "../../utils/validator";
+import { login } from "../../store/users";
 
 const LoginForm = () => {
+    const history = useHistory();
+    const dispatch = useDispatch();
+
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -45,11 +51,12 @@ const LoginForm = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-        const newData = {
-            ...data
-        };
-
-        console.log(newData);
+        /* eslint-disable */
+        const redirect =
+            // history.location.state && history.location.state.from.pathname ? history.location.state.from.pathname : "/";
+            history.location.state ? history.location.state.from.pathname : "/";
+        /* eslint-enable */
+        dispatch(login({ payload: data, redirect }));
     };
 
     useEffect(() => {
