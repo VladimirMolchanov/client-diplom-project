@@ -26,11 +26,18 @@ module.exports = {
         ],
         "react/display-name": "off",
         "multiline-ternary": ["off"],
-        quotes: ["error", "double", { allowTemplateLiterals: true, avoidEscape: true }],
+        quotes: [
+            "error",
+            "double",
+            { allowTemplateLiterals: true, avoidEscape: true }
+        ],
         "react/jsx-indent": [0, "tab"],
         "comma-dangle": ["error", "never"],
         "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
-        "react/function-component-definition": [2, { namedComponents: ["function-declaration", "arrow-function"] }],
+        "react/function-component-definition": [
+            2,
+            { namedComponents: ["function-declaration", "arrow-function"] }
+        ],
         "react/jsx-indent-props": [2, 4],
         "arrow-body-style": 0,
         "object-curly-newline": 0,
@@ -50,6 +57,7 @@ module.exports = {
         "jsx-a11y/no-static-element-interactions": 0,
         "no-shadow": 0,
         "no-restricted-syntax": 0,
-        "guard-for-in": 0
+        "guard-for-in": 0,
+        "react/forbid-prop-types": 0
     }
 };
