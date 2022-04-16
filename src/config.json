@@ -1,5 +1,4 @@
 {
   "assetsEndpoint": "http://localhost:8080/",
-  "apiEndpoint": "http://localhost:8080/api/",
-  "isFireBase": true
+  "apiEndpoint": "http://localhost:8080/api/"
 }
