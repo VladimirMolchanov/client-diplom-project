@@ -13,6 +13,7 @@ module.exports = {
     },
     plugins: ["react"],
     rules: {
+        camelcase: "off",
         indent: ["error", 4, { SwitchCase: 1 }],
         semi: [2, "always"],
         "space-before-function-paren": [
@@ -23,14 +24,13 @@ module.exports = {
                 asyncArrow: "always"
             }
         ],
-        quotes: ["error", "double", { allowTemplateLiterals: true }],
+        "react/display-name": "off",
+        "multiline-ternary": ["off"],
+        quotes: ["error", "double", { allowTemplateLiterals: true, avoidEscape: true }],
         "react/jsx-indent": [0, "tab"],
         "comma-dangle": ["error", "never"],
         "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
-        "react/function-component-definition": [
-            2,
-            { namedComponents: ["function-declaration", "arrow-function"] }
-        ],
+        "react/function-component-definition": [2, { namedComponents: ["function-declaration", "arrow-function"] }],
         "react/jsx-indent-props": [2, 4],
         "arrow-body-style": 0,
         "object-curly-newline": 0,
