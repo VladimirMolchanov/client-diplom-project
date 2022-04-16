@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/common/header";
-import BasketPage from "../components/pages/basket";
+import Header from "../components/header";
+import BasketPage from "../pages/basket";
 
 const Basket = () => {
     return (

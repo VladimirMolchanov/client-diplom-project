@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/img/logo.png";
 import "./header.css";
-import { getBasket } from "../../store/basket";
+import Logo from "../../../assets/img/logo.png";
+import { getBasket } from "../../core/store/basket";
 
 const Header = () => {
     const basket = useSelector(getBasket());

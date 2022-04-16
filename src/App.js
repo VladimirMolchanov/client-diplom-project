@@ -1,14 +1,14 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import AppLoader from "./lib/core/components/hoc/app.Loader";
+import ProtectedRoute from "./lib/core/components/protectedRoute";
+import Login from "./lib/core/layouts/login";
+import LogOut from "./lib/core/layouts/logOut";
+import IndexAdmin from "./lib/admin/layouts/indexAdmin";
+import Products from "./lib/public/layouts/products";
+import Basket from "./lib/public/layouts/basket";
+import Main from "./lib/public/layouts/main";
 import "./App.css";
-import Main from "./layouts/main";
-import Products from "./layouts/products";
-import AppLoader from "./components/ui/hoc/app.Loader";
-import Basket from "./layouts/basket";
-import Login from "./layouts/login";
-import ProtectedRoute from "./components/common/protectedRoute";
-import LogOut from "./layouts/logOut";
-import IndexAdmin from "./admin/layouts/indexAdmin";
 
 function App() {
     return (

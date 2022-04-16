@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
     getProductsLoadingStatus,
     loadProductsList
-} from "../../../store/products";
-import { loadColorsList } from "../../../store/color";
-import { loadCategoryList } from "../../../store/category";
-import { loadBasketList } from "../../../store/basket";
+} from "../../store/products";
+import { loadColorsList } from "../../store/color";
+import { loadCategoryList } from "../../store/category";
+import { loadBasketList } from "../../store/basket";
 
 const AppLoader = ({ children }) => {
     const dispatch = useDispatch();

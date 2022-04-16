@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
-import { getProducts } from "../../store/products";
-import Product from "../ui/product";
+import { usePagination } from "../../core/hooks/pagination";
+import { getProducts } from "../../core/store/products";
+import { getCategory } from "../../core/store/category";
+import { getColors } from "../../core/store/color";
+import { addBasketProduct } from "../../core/store/basket";
+import paginate from "../../core/utils/paginate";
+import TextField from "../../core/components/form/textField";
+import CheckBoxField from "../../core/components/form/checkBoxField";
+import Product from "../components/product";
+import Pagination from "../../core/components/pagination";
 import "./products.css";
-import { getCategory } from "../../store/category";
-import CheckBoxField from "../common/form/checkBoxField";
-import { getColors } from "../../store/color";
-import { usePagination } from "../../hooks/pagination";
-import Pagination from "../common/pagination";
-import paginate from "../../utils/paginate";
-import TextField from "../common/form/textField";
-import { addBasketProduct } from "../../store/basket";
 
 const Products = () => {
     const initialFilter = {

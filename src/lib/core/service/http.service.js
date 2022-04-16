@@ -1,5 +1,5 @@
 import axios from "axios";
-import configFile from "../config.json";
+import configFile from "../../../config.json";
 import localStorageService from "./localStorageService";
 import authService from "./auth.service";
 

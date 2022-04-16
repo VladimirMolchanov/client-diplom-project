@@ -1,7 +1,7 @@
 import React from "react";
 import "./basket.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBasketProduct, getBasket } from "../../store/basket";
+import { deleteBasketProduct, getBasket } from "../../core/store/basket";
 
 const Basket = () => {
     const dispatch = useDispatch();

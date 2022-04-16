@@ -5,8 +5,8 @@ import { Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import createStore from "./store/createStore";
-import history from "./utils/history";
+import history from "./lib/core/utils/history";
+import createStore from "./lib/core/store/createStore";
 
 const store = createStore();
 

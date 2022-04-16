@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../components/common/header";
-import Catalog from "../components/pages/products";
-import PaginationProvider from "../hooks/pagination";
+import Header from "../components/header";
+import PaginationProvider from "../../core/hooks/pagination";
+import Catalog from "../pages/products";
 
 const Products = () => {
     return (

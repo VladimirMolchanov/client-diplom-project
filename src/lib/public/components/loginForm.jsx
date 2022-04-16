@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import TextField from "../common/form/textField";
-import validator from "../../utils/validator";
-import { singUp } from "../../store/users";
+import validator from "../../core/utils/validator";
+import TextField from "../../core/components/form/textField";
+import { login } from "../../core/store/users";
 
-const RegisterForm = () => {
+const LoginForm = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
 
     const [data, setData] = useState({
         email: "",
-        password: "",
-        name: ""
+        password: ""
     });
     const [error, setError] = useState({});
-
-    const handleChange = (target) => {
-        if (target) {
-            setData((prevState) => ({
-                ...prevState,
-                [target.name]: target.value
-            }));
-        }
-    };
 
     const validatorConfig = {
         email: {
@@ -32,29 +24,19 @@ const RegisterForm = () => {
                 message: "Email введен некорректно"
             }
         },
-        name: {
-            isRequired: {
-                message: "Имя обязательно для заполнения"
-            },
-            min: {
-                message: "Имя должен состоять минимум из 3 символов",
-                value: 3
-            }
-        },
         password: {
             isRequired: {
                 message: "Пароль обязательна для заполнения"
-            },
-            isCapitalSymbol: {
-                message: "Пароль должен содержать хотя бы одну заглавную букву"
-            },
-            isContainDigit: {
-                message: "Пароль должен содержать хотя бы одно число"
-            },
-            min: {
-                message: "Пароль должен состоять минимум из 8 символов",
-                value: 8
             }
+        }
+    };
+
+    const handleChange = (target) => {
+        if (target) {
+            setData((prevState) => ({
+                ...prevState,
+                [target.name]: target.value
+            }));
         }
     };
 
@@ -69,8 +51,12 @@ const RegisterForm = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) return;
-
-        dispatch(singUp(data));
+        /* eslint-disable */
+        const redirect =
+            // history.location.state && history.location.state.from.pathname ? history.location.state.from.pathname : "/";
+            history.location.state ? history.location.state.from.pathname : "/";
+        /* eslint-enable */
+        dispatch(login({ payload: data, redirect }));
     };
 
     useEffect(() => {
@@ -80,15 +66,7 @@ const RegisterForm = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <h1>Регистрация</h1>
-                <TextField
-                    label="Имя"
-                    type="text"
-                    name="name"
-                    value={data.name}
-                    onChange={handleChange}
-                    error={error.name}
-                />
+                <h1>Авторизация</h1>
                 <TextField
                     label="Электронная почта"
                     name="email"
@@ -109,11 +87,11 @@ const RegisterForm = () => {
                     disabled={!isValid}
                     className="btn btn-primary w-100 mx-auto"
                 >
-                    Зарегистрироваться
+                    Авторизироваться
                 </button>
             </form>
         </div>
     );
 };
 
-export default RegisterForm;
+export default LoginForm;
