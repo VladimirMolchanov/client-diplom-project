@@ -58,6 +58,10 @@ module.exports = {
         "no-shadow": 0,
         "no-restricted-syntax": 0,
         "guard-for-in": 0,
-        "react/forbid-prop-types": 0
+        "react/forbid-prop-types": 0,
+        "react/no-unstable-nested-components": 0,
+        "import/newline-after-import": 0,
+        "import/first": 0,
+        "prefer-destructuring": 0
     }
 };
