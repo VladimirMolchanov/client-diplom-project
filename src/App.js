@@ -7,14 +7,14 @@ import AppLoader from "./components/ui/hoc/app.Loader";
 import Basket from "./layouts/basket";
 import Login from "./layouts/login";
 import ProtectedRoute from "./components/common/protectedRoute";
-import Admin from "./layouts/admin";
 import LogOut from "./layouts/logOut";
+import IndexAdmin from "./admin/layouts/indexAdmin";
 
 function App() {
     return (
         <AppLoader>
             <Switch>
-                <ProtectedRoute path="/admin/" component={Admin} />
+                <ProtectedRoute path="/admin/" component={IndexAdmin} />
                 <Route path="/products" component={Products} />
                 <Route path="/basket" component={Basket} />
                 <Route path="/login/:type?" component={Login} />
