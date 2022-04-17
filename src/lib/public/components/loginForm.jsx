@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import validator from "../../core/utils/validator";
 import TextField from "../../core/components/form/textField";
-import { login } from "../../core/store/users";
+import { cleanAuthError, getAuthError, login } from "../../core/store/users";
 
 const LoginForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
+    const errorAuth = useSelector(getAuthError());
 
+    const [touched, setTouched] = useState(false);
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -32,6 +34,9 @@ const LoginForm = () => {
     };
 
     const handleChange = (target) => {
+        if (errorAuth) {
+            dispatch(cleanAuthError());
+        }
         if (target) {
             setData((prevState) => ({
                 ...prevState,
@@ -45,12 +50,15 @@ const LoginForm = () => {
         setError(error);
         return Object.keys(error).length === 0;
     };
-    const isValid = Object.keys(error).length === 0;
 
     const handleSubmit = (e) => {
         e.preventDefault();
         const isValid = validate();
-        if (!isValid) return;
+        if (!isValid) {
+            console.log(isValid);
+            setTouched(true);
+            return;
+        }
         /* eslint-disable */
         const redirect =
             // history.location.state && history.location.state.from.pathname ? history.location.state.from.pathname : "/";
@@ -66,29 +74,35 @@ const LoginForm = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <h1>Авторизация</h1>
+                <h1 className="section__title section__title-gradient mb-4 text-center">
+                    Авторизация
+                </h1>
                 <TextField
+                    className="form-control"
                     label="Электронная почта"
                     name="email"
                     value={data.email}
                     onChange={handleChange}
                     error={error.email}
+                    touch={touched}
                 />
                 <TextField
+                    className="form-control"
                     label="Пароль"
                     type="password"
                     name="password"
                     value={data.password}
                     onChange={handleChange}
                     error={error.password}
+                    touch={touched}
                 />
                 <button
                     type="submit"
-                    disabled={!isValid}
-                    className="btn btn-primary w-100 mx-auto"
+                    className="button button--flex w-100 justify-content-center mb-2"
                 >
                     Авторизироваться
                 </button>
+                <p className="text-error">{errorAuth}</p>
             </form>
         </div>
     );

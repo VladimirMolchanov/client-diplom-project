@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import validator from "../../core/utils/validator";
-import { singUp } from "../../core/store/users";
+import { cleanAuthError, getAuthError, singUp } from "../../core/store/users";
 import TextField from "../../core/components/form/textField";
 
 const RegisterForm = () => {
     const dispatch = useDispatch();
 
+    const errorAuth = useSelector(getAuthError());
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -15,6 +16,9 @@ const RegisterForm = () => {
     const [error, setError] = useState({});
 
     const handleChange = (target) => {
+        if (errorAuth) {
+            dispatch(cleanAuthError());
+        }
         if (target) {
             setData((prevState) => ({
                 ...prevState,
@@ -80,7 +84,9 @@ const RegisterForm = () => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <h1>Регистрация</h1>
+                <h1 className="section__title section__title-gradient mb-4 text-center">
+                    Регистрация
+                </h1>
                 <TextField
                     label="Имя"
                     type="text"
@@ -107,10 +113,11 @@ const RegisterForm = () => {
                 <button
                     type="submit"
                     disabled={!isValid}
-                    className="btn btn-primary w-100 mx-auto"
+                    className="button button--flex w-100 justify-content-center mb-2"
                 >
                     Зарегистрироваться
                 </button>
+                <p className="text-error">{errorAuth}</p>
             </form>
         </div>
     );

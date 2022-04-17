@@ -9,7 +9,8 @@ const initialState = {
     auth: localStorageService.getAccessToken()
         ? localStorageService.getUserId()
         : null,
-    isLoggedIn: !!localStorageService.getAccessToken()
+    isLoggedIn: !!localStorageService.getAccessToken(),
+    error: null
 };
 
 const usersSlice = createSlice({
@@ -30,13 +31,21 @@ const usersSlice = createSlice({
         },
         authRequestFailed: (state, action) => {
             state.error = action.payload;
+        },
+        cleanError: (state) => {
+            state.error = null;
         }
     }
 });
 
 const { reducer: usersReducer, actions } = usersSlice;
-const { authRequestSuccess, authRequested, authRequestFailed, userLoggedOut } =
-    actions;
+const {
+    authRequestSuccess,
+    authRequested,
+    authRequestFailed,
+    userLoggedOut,
+    cleanError
+} = actions;
 
 /* eslint-disable */
 export const login =
@@ -65,9 +74,21 @@ export const singUp = (payload) => async (dispatch) => {
         const data = await authService.register(payload);
         localStorageService.setTokens(data);
         dispatch(authRequestSuccess({ userId: data.userId }));
+        history.push("/");
     } catch (error) {
-        dispatch(authRequestFailed(error.message));
+        const { code, message } = error.response.data.error;
+        console.log(error.response.data);
+        if (code === 400) {
+            const errorMessage = generateAuthError(message);
+            dispatch(authRequestFailed(errorMessage));
+        } else {
+            dispatch(authRequestFailed(error.message));
+        }
     }
+};
+
+export const cleanAuthError = () => (dispatch) => {
+    dispatch(cleanError());
 };
 
 export const logOut = () => (dispatch) => {

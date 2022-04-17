@@ -5,21 +5,17 @@ import ProtectedRoute from "./lib/core/components/protectedRoute";
 import Login from "./lib/core/layouts/login";
 import LogOut from "./lib/core/layouts/logOut";
 import IndexAdmin from "./lib/admin/layouts/indexAdmin";
-import Products from "./lib/public/layouts/products";
-import Basket from "./lib/public/layouts/basket";
 import Main from "./lib/public/layouts/main";
-import "./App.css";
+import "./assets/css/public.sass";
 
 function App() {
     return (
         <AppLoader>
             <Switch>
                 <ProtectedRoute path="/admin/" component={IndexAdmin} />
-                <Route path="/products" component={Products} />
-                <Route path="/basket" component={Basket} />
                 <Route path="/login/:type?" component={Login} />
                 <Route path="/logout" component={LogOut} />
-                <Route path="/" exact component={Main} />
+                <Route path="/" component={Main} />
                 <Redirect to="/" />
             </Switch>
         </AppLoader>

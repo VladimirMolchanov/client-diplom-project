@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 const TextField = ({
@@ -8,16 +8,24 @@ const TextField = ({
     value,
     onChange,
     error,
-    placeholder
+    placeholder,
+    touch
 }) => {
+    const [touched, setTouched] = useState(false);
+
+    useEffect(() => {
+        setTouched(touch);
+    }, [touch]);
+
     const [showPassword, setShowPassword] = useState(false);
     const getInputClasses = () => {
-        return "form-control" + (error ? " is-invalid" : "");
+        return "form-control" + (touched && error ? " is-invalid" : "");
     };
     const toggleShowPassword = () => {
         setShowPassword((prev) => !prev);
     };
     const handleChange = ({ target }) => {
+        setTouched(true);
         onChange({ name: target.name, value: target.value });
     };
     return (
@@ -45,12 +53,15 @@ const TextField = ({
                     >
                         <i
                             className={
-                                "bi bi-eye" + (showPassword ? "-slash" : "")
+                                "ri-eye" +
+                                (showPassword ? "-off-line" : "-line")
                             }
                         />
                     </button>
                 )}
-                {error && <div className="invalid-feedback">{error}</div>}
+                {touched && error && (
+                    <div className="invalid-feedback">{error}</div>
+                )}
             </div>
         </div>
     );
@@ -65,7 +76,8 @@ TextField.propTypes = {
     value: PropTypes.string,
     onChange: PropTypes.func,
     error: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    touch: PropTypes.bool
 };
 
 export default TextField;

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
-import "./index.css";
+import "./index.sass";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import history from "./lib/core/utils/history";
