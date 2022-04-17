@@ -5,13 +5,18 @@ import {
     getProductsLoadingStatus,
     loadProductsList
 } from "../../store/products";
-import { loadColorsList } from "../../store/color";
-import { loadCategoryList } from "../../store/category";
+import { getColorsLoadingStatus, loadColorsList } from "../../store/color";
+import {
+    getCategoryLoadingStatus,
+    loadCategoryList
+} from "../../store/category";
 import { loadBasketList } from "../../store/basket";
 
 const AppLoader = ({ children }) => {
     const dispatch = useDispatch();
     const productsIsLoading = useSelector(getProductsLoadingStatus());
+    const colorIsLoading = useSelector(getColorsLoadingStatus());
+    const categoryIsLoading = useSelector(getCategoryLoadingStatus());
 
     useEffect(() => {
         dispatch(loadProductsList());
@@ -19,7 +24,9 @@ const AppLoader = ({ children }) => {
         dispatch(loadCategoryList());
         dispatch(loadBasketList());
     }, []);
-    if (productsIsLoading) return "Loading...";
+    if (productsIsLoading || colorIsLoading || categoryIsLoading) {
+        return "Loading...";
+    }
     return children;
 };
 AppLoader.propTypes = {

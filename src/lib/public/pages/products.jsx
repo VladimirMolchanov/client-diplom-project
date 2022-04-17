@@ -11,7 +11,6 @@ import TextField from "../../core/components/form/textField";
 import CheckBoxField from "../../core/components/form/checkBoxField";
 import Product from "../components/product";
 import Pagination from "../../core/components/pagination";
-import "./products.css";
 
 const Products = () => {
     const initialFilter = {
