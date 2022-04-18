@@ -1,7 +1,32 @@
+.public-panel
+  margin: var(--header-height) 0 0 0
+  font-family: var(--body-font)
+  font-size: var(--normal-font-size)
+  background-color: var(--body-color)
+  color: var(--text-color)
+  h1,
+  h2,
+  h3
+    color: var(--title-color)
+  ul
+    list-style: none
+  a
+    text-decoration: none
+  button,
+  input
+    border: none
+    outline: none
+  img
+    max-width: 100%
+    height: auto
+
+
 .w-100
   width: 100% !important
 .text-center
   text-align: center!important
+.text-left
+  text-align: left!important
 
 label
   display: inline-block
@@ -32,3 +57,32 @@ label
   justify-content: center
 .align-items-center
   align-items: center
+
+.public-panel
+  /*=============== REUSABLE CSS CLASSES ===============*/
+  .section
+    padding: 4rem 0 2rem
+  .section__title
+    font-size: var(--bigger-font-size)
+    text-align: center
+    margin-bottom: var(--mb-2-5)
+  .section__title-gradient
+    background: var(--text-gradient)
+    color: transparent
+    -webkit-background-clip: text
+    background-clip: text
+  /*=============== LAYOUT ===============*/
+  .main
+    overflow: hidden /* For animation and images */
+  .container
+    max-width: 968px
+    margin-left: var(--mb-1-5)
+    margin-right: var(--mb-1-5)
+    @media screen and (max-width: 340px)
+      margin-left: var(--mb-1)
+      margin-right: var(--mb-1)
+    @media screen and (min-width: 1024px)
+      margin-left: auto
+      margin-right: auto
+  .grid
+    display: grid

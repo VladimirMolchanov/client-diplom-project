@@ -51,10 +51,18 @@ const Modal = ({ open, onClose, onSuccess, children }) => {
                 <div className="modal-content">
                     {children}
                     <div className="modal-footer">
-                        <button type="button" onClick={onClose}>
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={onClose}
+                        >
                             Отмена
                         </button>
-                        <button type="button" onClick={onSuccess}>
+                        <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={onSuccess}
+                        >
                             Сохранить
                         </button>
                     </div>

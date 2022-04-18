@@ -1,0 +1,22 @@
+.public-panel
+  .pagination
+    display: flex
+    flex-direction: row
+    justify-content: end
+    align-items: center
+    .page-item
+      background: var(--container-color)
+      margin: 0 .25rem
+      transition: .3s
+      opacity: .7
+    .page-item:hover,
+    .page-active
+      background: var(--black-color-alt)
+      opacity: 1
+    .page-link
+      background: var(--container-color)
+      cursor: pointer
+      display: block
+      padding: .5rem .75rem .5rem .75rem
+      font-size: var(--small-font-size)
+      color: var(--white-color)

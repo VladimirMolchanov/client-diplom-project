@@ -11,12 +11,28 @@ import TextField from "../../core/components/form/textField";
 import CheckBoxField from "../../core/components/form/checkBoxField";
 import Product from "../components/product";
 import Pagination from "../../core/components/pagination";
+import Color from "../../core/components/color";
+import SelectFiled from "../../core/components/form/selectField";
 
 const Products = () => {
     const initialFilter = {
         category: [],
         colors: []
     };
+    const countItemsPage = [
+        {
+            label: "4",
+            value: "4"
+        },
+        {
+            label: "10",
+            value: "10"
+        },
+        {
+            label: "Все",
+            value: "all"
+        }
+    ];
     const dispatch = useDispatch();
     const { currentPage, onPageChange, pageSize, setPagesSize } =
         usePagination();
@@ -61,6 +77,15 @@ const Products = () => {
                     ...prevState,
                     ...filter
                 }));
+            }
+        }
+    };
+    const handleChangeCounts = (target) => {
+        if (target) {
+            if (target.value === "all") {
+                setPagesSize(-1);
+            } else {
+                setPagesSize(+target.value);
             }
         }
     };
@@ -114,7 +139,10 @@ const Products = () => {
         [sortBy.path],
         [sortBy.order]
     );
-    const productsCrop = paginate(sortedUsers, currentPage, pageSize);
+    let productsCrop = sortedUsers;
+    if (pageSize !== -1) {
+        productsCrop = paginate(sortedUsers, currentPage, pageSize);
+    }
 
     return (
         <section className="products section">
@@ -124,32 +152,48 @@ const Products = () => {
                 </h2>
 
                 <div className="products__header">
-                    <TextField
-                        label="Поиск"
-                        name="name"
-                        value={search}
-                        onChange={handleSearch}
-                    />
                     <div className="search">
-                        Сортировка
-                        <span
-                            onClick={() => {
-                                handleSort("price");
-                            }}
-                        >
-                            {sortBy.order === "asc"
-                                ? `Сначала не дорогие`
-                                : `сначало дорогие`}
-                        </span>
+                        <TextField
+                            label="Поиск"
+                            name="name"
+                            value={search}
+                            onChange={handleSearch}
+                            placeholder="Введите наименование"
+                        />
+                    </div>
+                    <div className="products__header-body">
+                        <div className="sorted">
+                            Сортировка:
+                            <span
+                                className="sort__variant"
+                                onClick={() => {
+                                    handleSort("price");
+                                }}
+                            >
+                                {sortBy.order === "asc"
+                                    ? `Сначала не дорогие`
+                                    : `Сначало дорогие`}
+                            </span>
+                        </div>
+                        <div className="count__pages">
+                            <SelectFiled
+                                onChange={handleChangeCounts}
+                                options={countItemsPage}
+                                label="Показывать: "
+                                name="count"
+                                value={pageSize.toString()}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className="products__body grid">
                     <div className="products__filter">
+                        <h2 className="mb-4">Фильтер</h2>
                         <div className="filter__item">
                             <div className="filter__title">
                                 <span>Connection</span>
                             </div>
-                            <div>
+                            <div className="filter__group">
                                 {category &&
                                     category.map((i, index) => (
                                         <CheckBoxField
@@ -168,7 +212,7 @@ const Products = () => {
                             <div className="filter__title">
                                 <span>Colors</span>
                             </div>
-                            <div>
+                            <div className="filter__colors">
                                 {colors &&
                                     colors.map((i, index) => (
                                         <CheckBoxField
@@ -178,7 +222,9 @@ const Products = () => {
                                             onChange={handleChange}
                                             name="colors"
                                         >
-                                            {i.name}
+                                            <div>
+                                                <Color id={i._id} />
+                                            </div>
                                         </CheckBoxField>
                                     ))}
                             </div>

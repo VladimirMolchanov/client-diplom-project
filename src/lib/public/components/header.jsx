@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "./header.css";
 import Logo from "../../../assets/img/logo.png";
 import { getBasket } from "../../core/store/basket";
 
@@ -13,7 +12,7 @@ const Header = () => {
     );
 
     return (
-        <header className="header">
+        <header className="header scroll-header">
             <nav className="nav container">
                 <Link to="/" className="nav__logo">
                     <img src={Logo} alt="Logo" />
@@ -22,17 +21,17 @@ const Header = () => {
                 <div className="nav__menu">
                     <ul className="nav__list">
                         <li className="nav__item">
-                            <Link to="/" className="active-link nav__link">
+                            <Link to="/" className="nav__link">
                                 Home
                             </Link>
                         </li>
                         <li className="nav__item">
-                            <Link to="/" className="active-link nav__link">
+                            <Link to="/" className="nav__link">
                                 Specs
                             </Link>
                         </li>
                         <li className="nav__item">
-                            <Link to="/" className="active-link nav__link">
+                            <Link to="/" className="nav__link">
                                 Case
                             </Link>
                         </li>
@@ -45,12 +44,18 @@ const Header = () => {
                             </Link>
                         </li>
                     </ul>
-                    <Link to="/basket">
+                    <Link to="/basket" className="nav__basket">
                         <div className="nav__basket" id="nav-toggle">
                             <div className="price">{totalPrice}</div>
                             <div className="icon">
-                                <i className="ri-shopping-bag-3-line" />
-                                <span className="badge">{basket.length}</span>
+                                <div>
+                                    <i className="ri-shopping-bag-3-line" />
+                                </div>
+                                <div className="product__count">
+                                    <span className="badge">
+                                        {basket.length}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </Link>

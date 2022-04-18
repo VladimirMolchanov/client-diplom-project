@@ -7,6 +7,7 @@ import LogOut from "./lib/core/layouts/logOut";
 import IndexAdmin from "./lib/admin/layouts/indexAdmin";
 import Main from "./lib/public/layouts/main";
 import "./assets/css/public.sass";
+import "./assets/css/core/index.scss";
 
 function App() {
     return (

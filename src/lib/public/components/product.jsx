@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./product.css";
 import config from "../../../config.json";
 
 const Product = ({ _id, name, price, img, onShopping }) => {

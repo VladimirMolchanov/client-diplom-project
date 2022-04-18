@@ -1,0 +1,35 @@
+.public-panel
+  .products__body
+    grid-template-columns: 160px auto
+    gap: 2rem
+  .products__products
+    grid-template-columns: repeat(3, 1fr)
+    gap: 6rem 3rem
+    margin-top: 5rem
+    margin-bottom: var(--mb-2)
+  .product__item
+    position: relative
+  .products__heading
+    margin-bottom: 2rem
+  .products__heading .section__title
+    text-align: left
+
+  .sorted
+    display: flex
+    justify-content: end
+    align-items: center
+    .sort__variant
+      margin-left: 1rem
+      cursor: pointer
+  .products__header-body
+    display: grid
+    grid-template-columns: auto auto
+    gap: 2rem
+    justify-content: end
+    label
+      margin-bottom: 0
+    .select__field
+      display: grid
+      grid-template-columns: auto auto
+      gap: 1rem
+      align-items: center
