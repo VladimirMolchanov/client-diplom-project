@@ -6,6 +6,17 @@ const colorsService = {
     getAll: async () => {
         const { data } = await httpService.get(colorsEndpoint);
         return data;
+    },
+    removeColor: async (colorId) => {
+        const { data } = await httpService.delete(colorsEndpoint + colorId);
+        return data;
+    },
+    updateColor: async (colorId, payload) => {
+        const { data } = await httpService.patch(
+            colorsEndpoint + colorId,
+            payload
+        );
+        return data;
     }
 };
 

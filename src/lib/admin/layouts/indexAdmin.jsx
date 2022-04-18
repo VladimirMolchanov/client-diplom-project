@@ -8,6 +8,7 @@ import "../../../assets/css/admin.sass";
 import Sidebar from "../components/sidebar";
 import { navItems } from "../constant/menu";
 import Header from "../components/header";
+import Settings from "../pages/settings";
 const IndexAdmin = () => {
     useEffect(() => {
         document.body.classList.add("admin-panel");
@@ -34,6 +35,10 @@ const IndexAdmin = () => {
                             <ProtectedRoute
                                 path="/admin/dashboard"
                                 component={Dashboards}
+                            />
+                            <ProtectedRoute
+                                path="/admin/settings"
+                                component={Settings}
                             />
                             <Redirect to="/admin/dashboard" />
                         </Switch>

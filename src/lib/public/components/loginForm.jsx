@@ -55,7 +55,6 @@ const LoginForm = () => {
         e.preventDefault();
         const isValid = validate();
         if (!isValid) {
-            console.log(isValid);
             setTouched(true);
             return;
         }

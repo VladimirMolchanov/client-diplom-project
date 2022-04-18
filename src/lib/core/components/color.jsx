@@ -5,8 +5,18 @@ import { getColorsByIds } from "../store/color";
 
 const Color = ({ id }) => {
     const color = useSelector(getColorsByIds(id));
-
-    return <div>{color.name}</div>;
+    if (!color) return "Loading...";
+    return (
+        <div
+            className="color-radius"
+            data-name={color.name}
+            style={{
+                background: color.color
+            }}
+        >
+            {color.name}
+        </div>
+    );
 };
 Color.propTypes = {
     id: PropTypes.string
