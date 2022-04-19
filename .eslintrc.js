@@ -62,6 +62,7 @@ module.exports = {
         "react/no-unstable-nested-components": 0,
         "import/newline-after-import": 0,
         "import/first": 0,
-        "prefer-destructuring": 0
+        "prefer-destructuring": 0,
+        "implicit-arrow-linebreak": 0
     }
 };
