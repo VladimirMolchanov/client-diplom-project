@@ -1,0 +1,37 @@
+.public-panel
+  .discount__container
+    position: relative
+    background-color: var(--container-color)
+    padding: 2rem 1.5rem
+    border-radius: .75rem
+  .discount__title
+    font-size: var(--h3-font-size)
+    margin-bottom: var(--mb-0-75)
+  .discount__description
+    margin-bottom: var(--mb-1)
+  .discount__img
+    width: 300px
+    position: absolute
+    top: 4rem
+    right: -11rem
+  @media screen and (min-width: 576px)
+    .discount__img
+      position: initial
+    .discount__container
+      grid-template-columns: repeat(2, 1fr)
+      justify-content: center
+      align-items: center
+  @media screen and (min-width: 767px)
+    .discount__container
+      grid-template-columns: 250px max-content
+      justify-content: center
+      column-gap: 5rem
+      padding: 3rem 0
+    .discount__title
+      font-size: var(--h2-font-size)
+      margin-bottom: var(--mb-1)
+    .discount__description
+      margin-bottom: var(--mb-2)
+  @media screen and (min-width: 1024px)
+    .discount__img
+      width: 350px
