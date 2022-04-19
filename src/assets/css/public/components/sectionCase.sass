@@ -1,0 +1,39 @@
+.public-panel
+  .case__container
+    position: relative
+    grid-template-columns: repeat(2, 1fr)
+  .case__data
+    padding: 5rem 0 3rem
+  .case__img
+    width: 250px
+    position: absolute
+    left: -7rem
+  .case__description
+    margin-bottom: var(--mb-1-5)
+    line-height: var(--text-line-height)
+  @media screen and (max-width: 340px)
+    .case__container
+      grid-template-columns: .6fr 1fr
+    .case__img
+      width: 220px
+      top: -2rem
+      left: -9rem
+    .case__data
+      padding: 0
+  @media screen and (min-width: 576px)
+    .case__img
+      position: initial
+    .case__data
+      padding: 0
+    .case__container
+      grid-template-columns: max-content 250px
+      justify-content: center
+      align-items: center
+      column-gap: 2rem
+  @media screen and (min-width: 767px)
+    .case__container
+      column-gap: 5rem
+    .case__img
+      width: 300px
+    .case__description
+      margin-bottom: var(--mb-2)
