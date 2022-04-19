@@ -9,6 +9,8 @@ import { getColors } from "../../core/store/color";
 import { getCategory } from "../../core/store/category";
 import { createProduct, updateProduct } from "../../core/store/products";
 import productsService from "../../core/service/products.service";
+import FileField from "../../core/components/form/fileField";
+import config from "../../../config.json";
 
 const ProductForm = ({ product, create }) => {
     const dispatch = useDispatch();
@@ -70,11 +72,7 @@ const ProductForm = ({ product, create }) => {
         }
     };
 
-    const _handleImageChange = async (e) => {
-        e.preventDefault();
-
-        const file = e.target.files[0];
-
+    const _handleImageChange = async (file) => {
         const dataFile = new FormData();
         dataFile.append("file", file);
 
@@ -122,11 +120,17 @@ const ProductForm = ({ product, create }) => {
                     touch={touched}
                 />
 
-                <input
-                    name="img"
-                    type="file"
-                    onChange={(e) => _handleImageChange(e)}
-                />
+                <div className="mb-4">
+                    <div className="productForm__img">
+                        <img src={config.assetsEndpoint + data.img} alt="" />
+                    </div>
+                    <FileField
+                        name="img"
+                        label="Картинка"
+                        onChange={_handleImageChange}
+                    />
+                </div>
+
                 <TextField
                     className="form-control"
                     label="price"
