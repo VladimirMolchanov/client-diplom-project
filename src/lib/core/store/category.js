@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { NotificationManager } from "react-notifications";
 import categoryService from "../service/category.service";
 
 const categorySlice = createSlice({
@@ -41,6 +42,10 @@ export const loadCategoryList = () => async (dispatch, getState) => {
             dispatch(categoryReceived(content));
         } catch (error) {
             dispatch(categoryRequestFailed(error.message));
+            NotificationManager.error(
+                error.message.toString(),
+                "Loading colors"
+            );
         }
     }
 };
