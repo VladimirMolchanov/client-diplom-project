@@ -83,6 +83,10 @@ export const loadProductsList = () => async (dispatch, getState) => {
             dispatch(productsReceived(content));
         } catch (error) {
             dispatch(productsRequestFailed(error.message));
+            NotificationManager.error(
+                error.message.toString(),
+                "Loading products"
+            );
         }
     }
 };
@@ -96,6 +100,7 @@ export const createProduct = (payload) => async (dispatch) => {
         history.push("/admin/products");
     } catch (error) {
         dispatch(createProductRequestFailed());
+        NotificationManager.error(error.message.toString(), "Create products");
     }
 };
 
@@ -104,8 +109,9 @@ export const removeProduct = (productId) => async (dispatch) => {
     try {
         await productsService.removeProduct(productId);
         dispatch(deleteProductSuccess(productId));
-    } catch (e) {
+    } catch (error) {
         dispatch(deleteProductRequestFailed());
+        NotificationManager.error(error.message.toString(), "Delete products");
     }
 };
 
@@ -118,9 +124,9 @@ export const updateProduct = (productId, payload) => async (dispatch) => {
         );
         dispatch(updateProductSuccess(content));
         NotificationManager.info("Сохраненно");
-    } catch (e) {
+    } catch (error) {
         dispatch(updateProductRequestFailed());
-        NotificationManager.error("Ошибка");
+        NotificationManager.error(error.message.toString(), "Update products");
     }
 };
 
