@@ -1,4 +1,5 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
+import { NotificationManager } from "react-notifications";
 import colorsService from "../service/colors.service";
 
 const colorsSlice = createSlice({
@@ -26,6 +27,9 @@ const colorsSlice = createSlice({
             state.entities = state.entities.filter(
                 (c) => c._id !== action.payload
             );
+        },
+        deleteColorRequestFailed: (state, action) => {
+            state.error = action.payload;
         },
         updateColorSuccess: (state, action) => {
             const index = state.entities.findIndex(
@@ -66,6 +70,10 @@ export const loadColorsList = () => async (dispatch, getState) => {
             dispatch(colorsReceived(content));
         } catch (error) {
             dispatch(colorsRequestFailed(error.message));
+            NotificationManager.error(
+                error.message.toString(),
+                "Loading colors"
+            );
         }
     }
 };
@@ -75,8 +83,9 @@ export const removeColor = (colorId) => async (dispatch) => {
     try {
         await colorsService.removeColor(colorId);
         dispatch(deleteColorSuccess(colorId));
-    } catch (e) {
+    } catch (error) {
         dispatch(deleteColorRequestFailed());
+        NotificationManager.error(error.message.toString(), "Remove colors");
     }
 };
 
@@ -85,8 +94,9 @@ export const updateColor = (colorId, payload) => async (dispatch) => {
     try {
         const { content } = await colorsService.updateColor(colorId, payload);
         dispatch(updateColorSuccess(content));
-    } catch (e) {
+    } catch (error) {
         dispatch(updateColorRequestFailed());
+        NotificationManager.error(error.message.toString(), "Update colors");
     }
 };
 
