@@ -1,37 +1,33 @@
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { NotificationManager } from "react-notifications";
 import configFile from "../../../config.json";
 import localStorageService from "./localStorageService";
 import authService from "./auth.service";
-import { getIsLoggedIn } from "../store/users";
+import history from "../utils/history";
 
 const http = axios.create({
     baseURL: configFile.apiEndpoint
 });
 
 http.interceptors.request.use(async function (config) {
-    const logged = useSelector(getIsLoggedIn());
-    if (logged) {
-        const expiresDate = localStorageService.getTokenExpiresDate();
-        const refreshToken = localStorageService.getRefreshToken();
+    const expiresDate = localStorageService.getTokenExpiresDate();
+    const refreshToken = localStorageService.getRefreshToken();
 
-        if (refreshToken && expiresDate < Date.now()) {
-            const { data } = await authService.refresh();
-            localStorageService.setTokens({
-                refreshToken: data.refreshToken,
-                accessToken: data.accessToken,
-                expiresIn: data.expiresIn,
-                userId: data.userId
-            });
-        }
-        const accessToken = localStorageService.getAccessToken();
-        if (accessToken) {
-            config.headers = {
-                ...config.headers,
-                Authorization: `Bearer ${accessToken}`
-            };
-        }
+    if (refreshToken && expiresDate < Date.now()) {
+        const { data } = await authService.refresh();
+        localStorageService.setTokens({
+            refreshToken: data.refreshToken,
+            accessToken: data.accessToken,
+            expiresIn: data.expiresIn,
+            userId: data.userId
+        });
+    }
+    const accessToken = localStorageService.getAccessToken();
+    if (accessToken) {
+        config.headers = {
+            ...config.headers,
+            Authorization: `Bearer ${accessToken}`
+        };
     }
 
     return config;
@@ -47,9 +43,9 @@ http.interceptors.response.use(
             error.response &&
             error.response.status >= 400 &&
             error.response.status < 500;
-
-        if (error.response.status === 401) {
+        if (error.response && error.response.status === 401) {
             localStorageService.removeAuthData();
+            history.push("/login");
         }
         if (!expectedErrors) {
             console.log(error);
