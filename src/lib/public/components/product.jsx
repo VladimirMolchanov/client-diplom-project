@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import config from "../../../config.json";
 
 const Product = ({ _id, name, price, img, onShopping }) => {
@@ -9,13 +10,15 @@ const Product = ({ _id, name, price, img, onShopping }) => {
     return (
         <div className="products__card">
             <div className="products__content">
-                <img
-                    src={config.assetsEndpoint + img}
-                    alt=""
-                    className="products__img"
-                />
-                <h3 className="products__title">{name}</h3>
-                <span className="products__price">${price}</span>
+                <Link to={`/product/${_id}`}>
+                    <img
+                        src={config.assetsEndpoint + img}
+                        alt=""
+                        className="products__img"
+                    />
+                    <h3 className="products__title">{name}</h3>
+                    <span className="products__price">${price}</span>
+                </Link>
                 <button
                     onClick={() => {
                         handleClick(_id);

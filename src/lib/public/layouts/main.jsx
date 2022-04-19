@@ -5,6 +5,7 @@ import Products from "./products";
 import Basket from "./basket";
 import Home from "../pages/home";
 import Footer from "../components/footer";
+import Product from "../pages/product";
 
 const Main = () => {
     useEffect(() => {
@@ -19,6 +20,7 @@ const Main = () => {
             <Header />
             <Switch>
                 <Route path="/products" component={Products} />
+                <Route path="/product/:productId" component={Product} />
                 <Route path="/basket" component={Basket} />
                 <Route path="/" exact component={Home} />
                 <Redirect to="/" />
