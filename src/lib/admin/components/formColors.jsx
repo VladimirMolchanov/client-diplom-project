@@ -75,6 +75,7 @@ const FormColors = ({ color, onSubmit, submit }) => {
                     name="color"
                     value={data.color}
                     onChange={handleChange}
+                    npn
                     error={error.color}
                 />
             </form>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { NotificationManager } from "react-notifications";
 import configFile from "../../../config.json";
 import localStorageService from "./localStorageService";
 import authService from "./auth.service";
@@ -48,6 +49,7 @@ http.interceptors.response.use(
         if (!expectedErrors) {
             console.log(error);
             // Вывод ошибки запроса на публичную часть
+            NotificationManager.error(error.toString());
         }
         return Promise.reject(error);
     }

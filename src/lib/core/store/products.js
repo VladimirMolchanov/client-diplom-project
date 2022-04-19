@@ -1,5 +1,7 @@
 import { createAction, createSlice } from "@reduxjs/toolkit";
+import { NotificationManager } from "react-notifications";
 import productsService from "../service/products.service";
+import history from "../utils/history";
 
 const productsSlice = createSlice({
     name: "products",
@@ -29,6 +31,24 @@ const productsSlice = createSlice({
         },
         deleteProductRequestFailed: (state, action) => {
             state.error = action.payload;
+        },
+        updateProductSuccess: (state, action) => {
+            const index = state.entities.findIndex(
+                (u) => u._id === action.payload._id
+            );
+            state.entities[index] = action.payload;
+        },
+        updateProductRequestFailed: (state, action) => {
+            state.error = action.payload;
+        },
+        createProductSuccess: (state, action) => {
+            if (!Array.isArray(state.entities)) {
+                state.entities = [];
+            }
+            state.entities.push(action.payload);
+        },
+        createProductRequestFailed: (state, action) => {
+            state.error = action.payload;
         }
     }
 });
@@ -39,10 +59,16 @@ const {
     productsReceived,
     productsRequestFailed,
     deleteProductSuccess,
-    deleteProductRequestFailed
+    deleteProductRequestFailed,
+    updateProductSuccess,
+    updateProductRequestFailed,
+    createProductSuccess,
+    createProductRequestFailed
 } = actions;
 
+const createProductRequested = createAction("users/createProductRequested");
 const deleteProductRequested = createAction("users/deleteProductRequested");
+const updateProductRequested = createAction("users/updateProductRequested");
 
 function isOutDated(date) {
     return Date.now() - date > 10 * 60 * 1000;
@@ -61,6 +87,18 @@ export const loadProductsList = () => async (dispatch, getState) => {
     }
 };
 
+export const createProduct = (payload) => async (dispatch) => {
+    dispatch(createProductRequested());
+    try {
+        const { content } = await productsService.create(payload);
+        dispatch(createProductSuccess(content));
+        NotificationManager.info("Продукт добавлен");
+        history.push("/admin/products");
+    } catch (error) {
+        dispatch(createProductRequestFailed());
+    }
+};
+
 export const removeProduct = (productId) => async (dispatch) => {
     dispatch(deleteProductRequested());
     try {
@@ -68,6 +106,21 @@ export const removeProduct = (productId) => async (dispatch) => {
         dispatch(deleteProductSuccess(productId));
     } catch (e) {
         dispatch(deleteProductRequestFailed());
+    }
+};
+
+export const updateProduct = (productId, payload) => async (dispatch) => {
+    dispatch(updateProductRequested());
+    try {
+        const { content } = await productsService.updateProduct(
+            productId,
+            payload
+        );
+        dispatch(updateProductSuccess(content));
+        NotificationManager.info("Сохраненно");
+    } catch (e) {
+        dispatch(updateProductRequestFailed());
+        NotificationManager.error("Ошибка");
     }
 };
 
