@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import localStorageService from "../../core/service/localStorageService";
 
 const Header = () => {
+    const [theme, setTheme] = useState(
+        localStorageService.get("theme") || "light"
+    );
+    const toggleTheme = () =>
+        setTheme((prevState) => (prevState === "light" ? "dark" : "light"));
+
+    useEffect(() => {
+        if (theme === "dark") {
+            localStorageService.set("theme", "dark");
+            document.body.classList.add("dark-theme-variables");
+        } else {
+            localStorageService.set("theme", "light");
+            document.body.classList.remove("dark-theme-variables");
+        }
+    }, [theme]);
     return (
         <div className="header">
             <div className="header-body">
@@ -18,11 +34,23 @@ const Header = () => {
                     <button id="menu-btn" type="button">
                         <span className="material-icons-sharp">menu</span>
                     </button>
-                    <div className="theme-toggler">
-                        <span className="material-icons-sharp active">
+                    <div className="theme-toggler" onClick={toggleTheme}>
+                        <span
+                            className={
+                                "material-icons-sharp " +
+                                (theme === "light" ? "active" : "")
+                            }
+                        >
                             light_mode
                         </span>
-                        <span className="material-icons-sharp">dark_mode</span>
+                        <span
+                            className={
+                                "material-icons-sharp " +
+                                (theme === "dark" ? "active" : "")
+                            }
+                        >
+                            dark_mode
+                        </span>
                     </div>
                     <div className="profile">
                         <div className="info">
