@@ -1,0 +1,73 @@
+.public-panel
+  .home__img
+    width: 250px
+    position: absolute
+    top: -16rem
+    right: 1.5rem
+  .home__data
+    padding-top: 5rem
+  .home__header
+    position: relative
+  .home__title
+    position: absolute
+    top: -4rem
+    left: 1rem
+    line-height: 6rem
+    font-size: var(--biggest-font-size)
+    background: var(--text-gradient)
+    color: transparent
+    -webkit-background-clip: text
+    background-clip: text
+  .home__subtitle
+    font-size: var(--big-font-size)
+    margin-bottom: var(--mb-2-5)
+  .home__title-description
+    font-size: var(--h3-font-size)
+    font-weight: var(--font-medium)
+    margin-bottom: var(--mb-1)
+  .home__description
+    margin-bottom: var(--mb-2-5)
+    line-height: var(--text-line-height)
+  .home__price
+    font-size: var(--h3-font-size)
+    font-weight: var(--font-semi-bold)
+    margin-left: var(--mb-0-75)
+  @media screen and (max-width: 340px)
+    .section__title
+      font-size: var(--big-font-size)
+    .home__img
+        width: 200px
+        top: -13rem
+    .home__title
+        top: -4rem
+        font-size: var(--bigger-font-size)
+    .home__data
+        padding-top: 1rem
+    .home__description
+        font-size: var(--small-font-size)
+  @media screen and (min-width: 576px)
+    .home__container
+      grid-template-columns: .8fr 1fr
+    .home__data
+        padding-top: 2rem
+    .home__img
+        top: -7rem
+        left: 0
+  @media screen and (min-width: 767px)
+    .home__container
+      position: relative
+      grid-template-columns: repeat(2, 1fr)
+    .home__img
+        top: -9rem
+        left: 4rem
+    .home__data
+        padding-top: 8rem
+  @media screen and (min-width: 1024px)
+    .home__img
+      width: 300px
+      top: -15rem
+    .home__title
+        top: -5rem
+        left: 3.5rem
+    .home__description
+        padding-right: 5rem
