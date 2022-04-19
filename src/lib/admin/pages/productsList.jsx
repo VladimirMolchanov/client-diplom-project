@@ -21,12 +21,14 @@ const ProductsList = () => {
                 <h1>Каталог</h1>
             </div>
             <div className="main-body">
-                <ProductsTable
-                    products={userCrop}
-                    onSort={handleSort}
-                    selectedSort={sortBy}
-                    onDelete={handleDelete}
-                />
+                {userCrop && userCrop.length !== 0 && (
+                    <ProductsTable
+                        products={userCrop}
+                        onSort={handleSort}
+                        selectedSort={sortBy}
+                        onDelete={handleDelete}
+                    />
+                )}
             </div>
         </>
     );
