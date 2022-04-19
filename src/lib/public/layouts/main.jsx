@@ -3,6 +3,8 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Header from "../components/header";
 import Products from "./products";
 import Basket from "./basket";
+import Home from "../pages/home";
+import Footer from "../components/footer";
 
 const Main = () => {
     useEffect(() => {
@@ -18,8 +20,10 @@ const Main = () => {
             <Switch>
                 <Route path="/products" component={Products} />
                 <Route path="/basket" component={Basket} />
-                <Redirect to="/products" />
+                <Route path="/" exact component={Home} />
+                <Redirect to="/" />
             </Switch>
+            <Footer />
         </>
     );
 };
