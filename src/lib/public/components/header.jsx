@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Logo from "../../../assets/img/logo.png";
@@ -11,8 +11,22 @@ const Header = () => {
         0
     );
 
+    /* eslint-disable */
+    useEffect(() => {
+        function scrollHeader() {
+            const header = document.getElementById("header");
+            if (this.scrollY >= 50) header.classList.add("scroll-header");
+            else header.classList.remove("scroll-header");
+        }
+        window.addEventListener("scroll", scrollHeader);
+
+        return () => {
+            window.removeEventListener("scroll", scrollHeader);
+        };
+    }, []);
+
     return (
-        <header className="header scroll-header">
+        <header className="header" id="header">
             <nav className="nav container">
                 <Link to="/" className="nav__logo">
                     <img src={Logo} alt="Logo" />
@@ -21,17 +35,17 @@ const Header = () => {
                 <div className="nav__menu">
                     <ul className="nav__list">
                         <li className="nav__item">
-                            <Link to="/" className="nav__link">
+                            <Link to="/#home" className="nav__link">
                                 Home
                             </Link>
                         </li>
                         <li className="nav__item">
-                            <Link to="/" className="nav__link">
+                            <Link to="/#specs" className="nav__link">
                                 Specs
                             </Link>
                         </li>
                         <li className="nav__item">
-                            <Link to="/" className="nav__link">
+                            <Link to="/#case" className="nav__link">
                                 Case
                             </Link>
                         </li>
