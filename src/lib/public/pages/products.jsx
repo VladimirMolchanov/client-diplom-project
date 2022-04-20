@@ -209,25 +209,29 @@ const Products = () => {
                             </div>
                         </div>
                         <div className="filter__item">
-                            <div className="filter__title">
-                                <span>Colors</span>
-                            </div>
-                            <div className="filter__colors">
-                                {colors &&
-                                    colors.map((i, index) => (
-                                        <CheckBoxField
-                                            key={i._id}
-                                            index={index}
-                                            value={i._id}
-                                            onChange={handleChange}
-                                            name="colors"
-                                        >
-                                            <div>
-                                                <Color id={i._id} />
-                                            </div>
-                                        </CheckBoxField>
-                                    ))}
-                            </div>
+                            {colors && colors.length !== 0 && (
+                                <>
+                                    <div className="filter__title">
+                                        <span>Colors</span>
+                                    </div>
+                                    <div className="filter__colors">
+                                        {colors &&
+                                            colors.map((i, index) => (
+                                                <CheckBoxField
+                                                    key={i._id}
+                                                    index={index}
+                                                    value={i._id}
+                                                    onChange={handleChange}
+                                                    name="colors"
+                                                >
+                                                    <div>
+                                                        <Color id={i._id} />
+                                                    </div>
+                                                </CheckBoxField>
+                                            ))}
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                     <div className="products__content grid">

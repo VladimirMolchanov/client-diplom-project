@@ -21,7 +21,7 @@ function App() {
                     <ProtectedRoute path="/admin/" component={IndexAdmin} />
                     <Route path="/login/:type?" component={Login} />
                     <Route path="/logout" component={LogOut} />
-                    <Route path="/" exact component={Main} />
+                    <Route path="/" component={Main} />
                     <Redirect to="/" />
                 </Switch>
             </AppLoader>

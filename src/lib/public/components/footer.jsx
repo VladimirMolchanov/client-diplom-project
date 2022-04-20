@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="footer__container container grid">
                 <Link to="/" className="footer__logo">
                     <img
-                        src={confirm.assetsEndpoint + "assets/img/logo.png"}
+                        src={confirm.assetsEndpoint + "assets/image/logo.png"}
                         alt=""
                     />
                 </Link>

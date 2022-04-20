@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getColors, getColorsByIds, updateColor } from "../../core/store/color";
+import {
+    getColors,
+    getColorsByIds,
+    removeColor,
+    updateColor
+} from "../../core/store/color";
 import Color from "../../core/components/color";
 import Table from "../../core/components/table";
 import Modal from "../../core/components/modal";
@@ -17,6 +22,10 @@ const ColorsList = () => {
 
     const onSort = () => {};
     const selectedSort = {};
+
+    const handleDelete = (id) => {
+        dispatch(removeColor(id));
+    };
 
     const handleClose = () => {
         setEdit(false);
@@ -59,7 +68,9 @@ const ColorsList = () => {
                         <button
                             className="btn btn-delete"
                             type="button"
-                            onClick={() => {}}
+                            onClick={() => {
+                                handleDelete(colors._id);
+                            }}
                         >
                             <span className="material-icons-sharp">delete</span>
                         </button>
