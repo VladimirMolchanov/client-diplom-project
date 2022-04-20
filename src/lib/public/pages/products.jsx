@@ -87,6 +87,7 @@ const Products = () => {
             } else {
                 setPagesSize(+target.value);
             }
+            onPageChange(1);
         }
     };
 

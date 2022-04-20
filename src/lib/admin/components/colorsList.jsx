@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    createColor,
     getColors,
     getColorsByIds,
     removeColor,
@@ -14,6 +15,7 @@ import FormColors from "./formColors";
 const ColorsList = () => {
     const dispatch = useDispatch();
     const [edit, setEdit] = useState(false);
+    const [create, setCreate] = useState(false);
     const [editColorId, setEditColorId] = useState(null);
     const [submit, setSubmit] = useState(false);
 
@@ -29,6 +31,7 @@ const ColorsList = () => {
 
     const handleClose = () => {
         setEdit(false);
+        setCreate(false);
         setEditColorId(null);
     };
 
@@ -37,10 +40,20 @@ const ColorsList = () => {
     };
 
     const handleSubmit = (data) => {
-        dispatch(updateColor(editColorId, data));
+        if (create) {
+            dispatch(createColor(data));
+        } else {
+            dispatch(updateColor(editColorId, data));
+        }
+
         setEditColorId(null);
         setEdit(false);
+        setCreate(false);
         setSubmit(false);
+    };
+
+    const handleAddColor = () => {
+        setCreate(true);
     };
 
     const columns = {
@@ -93,21 +106,44 @@ const ColorsList = () => {
     };
     return (
         <div className="colors-table">
-            <h2>Colors</h2>
-            <Table
-                onSort={onSort}
-                selectedSort={selectedSort}
-                columns={columns}
-                data={colors}
-            />
-            <Modal open={edit} onClose={handleClose} onSuccess={handleSuccess}>
+            <div className="colors-titling">
+                <h2>Colors</h2>
+                <button
+                    onClick={handleAddColor}
+                    type="button"
+                    className="btn btn-primary color-while"
+                >
+                    Add color
+                </button>
+            </div>
+
+            {colors && colors.length !== 0 ? (
+                <Table
+                    onSort={onSort}
+                    selectedSort={selectedSort}
+                    columns={columns}
+                    data={colors}
+                />
+            ) : (
+                <div className="empty text-center">
+                    <p>Colors empty</p>
+                </div>
+            )}
+
+            <Modal
+                open={edit || create}
+                onClose={handleClose}
+                onSuccess={handleSuccess}
+            >
                 <div className="modal-header">
                     <h2>Изменить цвет</h2>
                 </div>
                 <div className="modal-body">
                     <FormColors
+                        create={create}
                         color={color}
                         submit={submit}
+                        setSubmit={setSubmit}
                         onSubmit={handleSubmit}
                     />
                 </div>

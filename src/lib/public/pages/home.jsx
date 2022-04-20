@@ -82,6 +82,10 @@ const Home = () => {
         sr.reveal(`.case__data`, {
             origin: "top"
         });
+
+        return function () {
+            sr.clean();
+        };
     }, []);
     return (
         <>

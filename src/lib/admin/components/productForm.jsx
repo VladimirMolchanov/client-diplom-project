@@ -103,6 +103,8 @@ const ProductForm = ({ product, create }) => {
         }
     };
 
+    const isValid = Object.keys(error).length === 0;
+
     useEffect(() => {
         validate();
     }, [data]);
@@ -160,7 +162,11 @@ const ProductForm = ({ product, create }) => {
                         value={data.category}
                     />
                 </div>
-                <button type="submit" className="btn btn-primary w-100 mx-auto">
+                <button
+                    type="submit"
+                    className="btn btn-primary w-100 mx-auto"
+                    disabled={!isValid}
+                >
                     <span
                         className="spinner-border spinner-border-sm me-2"
                         role="status"

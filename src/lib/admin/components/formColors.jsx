@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import TextField from "../../core/components/form/textField";
 import validator from "../../core/utils/validator";
 
-const FormColors = ({ color, onSubmit, submit }) => {
+const FormColors = ({ color, onSubmit, submit, setSubmit }) => {
     const [data, setData] = useState({
         name: color?.name || "",
         color: color?.color || ""
@@ -15,13 +15,8 @@ const FormColors = ({ color, onSubmit, submit }) => {
         });
     }, [color]);
 
-    useEffect(() => {
-        if (submit) {
-            onSubmit(data);
-        }
-    }, [submit]);
-
     const [error, setError] = useState({});
+    const [touched, setTouched] = useState(false);
 
     const validatorConfig = {
         name: {
@@ -51,13 +46,27 @@ const FormColors = ({ color, onSubmit, submit }) => {
         }
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const isValid = validate();
-        if (!isValid) return;
+        if (!isValid) {
+            setTouched(true);
+
+            setSubmit(false);
+            return;
+        }
 
         onSubmit(data);
     };
+
+    useEffect(() => {
+        if (submit) {
+            handleSubmit();
+        }
+    }, [submit]);
+
+    useEffect(() => {
+        validate();
+    }, [data]);
     return (
         <div>
             <form onSubmit={handleSubmit}>
@@ -68,6 +77,7 @@ const FormColors = ({ color, onSubmit, submit }) => {
                     value={data.name}
                     onChange={handleChange}
                     error={error.name}
+                    touch={touched}
                 />
                 <TextField
                     className="form-control"
@@ -77,6 +87,7 @@ const FormColors = ({ color, onSubmit, submit }) => {
                     onChange={handleChange}
                     npn
                     error={error.color}
+                    touch={touched}
                 />
             </form>
         </div>
@@ -85,6 +96,7 @@ const FormColors = ({ color, onSubmit, submit }) => {
 FormColors.propTypes = {
     color: PropTypes.object,
     onSubmit: PropTypes.func,
+    setSubmit: PropTypes.func,
     submit: PropTypes.bool
 };
 export default FormColors;

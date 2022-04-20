@@ -7,6 +7,10 @@ const colorsService = {
         const { data } = await httpService.get(colorsEndpoint);
         return data;
     },
+    create: async (payload) => {
+        const { data } = await httpService.put(colorsEndpoint, payload);
+        return data;
+    },
     removeColor: async (colorId) => {
         const { data } = await httpService.delete(colorsEndpoint + colorId);
         return data;

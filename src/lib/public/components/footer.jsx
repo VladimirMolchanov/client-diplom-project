@@ -18,23 +18,13 @@ const Footer = () => {
 
                     <ul className="footer__links">
                         <li>
-                            <Link to="/" className="footer__link">
-                                Headphones
+                            <Link to="/products" className="footer__link">
+                                Продукция
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="footer__link">
-                                Earphones
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/" className="footer__link">
-                                Earbuds
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/" className="footer__link">
-                                Accesories
+                            <Link to="/basket" className="footer__link">
+                                Корзина
                             </Link>
                         </li>
                     </ul>
@@ -44,23 +34,13 @@ const Footer = () => {
                     <h3 className="footer__title">Support</h3>
                     <ul className="footer__links">
                         <li>
-                            <Link to="/" className="footer__link">
-                                Product help
+                            <Link to="/login" className="footer__link">
+                                sing in
                             </Link>
                         </li>
                         <li>
-                            <Link to="/" className="footer__link">
+                            <Link to="/login/register" className="footer__link">
                                 Register
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/" className="footer__link">
-                                Updates
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to="/" className="footer__link">
-                                Provides
                             </Link>
                         </li>
                     </ul>

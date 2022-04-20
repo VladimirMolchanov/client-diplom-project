@@ -39,6 +39,15 @@ const colorsSlice = createSlice({
         },
         updateColorRequestFailed: (state, action) => {
             state.error = action.payload;
+        },
+        createColorSuccess: (state, action) => {
+            if (!Array.isArray(state.entities)) {
+                state.entities = [];
+            }
+            state.entities.push(action.payload);
+        },
+        createColorRequestFailed: (state, action) => {
+            state.error = action.payload;
         }
     }
 });
@@ -51,11 +60,14 @@ const {
     deleteColorSuccess,
     deleteColorRequestFailed,
     updateColorSuccess,
-    updateColorRequestFailed
+    updateColorRequestFailed,
+    createColorSuccess,
+    createColorRequestFailed
 } = actions;
 
 const deleteColorRequested = createAction("users/deleteColorRequested");
 const updateColorRequested = createAction("users/updateColorRequested");
+const createColorRequested = createAction("users/createColorRequested");
 
 function isOutDated(date) {
     return Date.now() - date > 10 * 60 * 1000;
@@ -75,6 +87,18 @@ export const loadColorsList = () => async (dispatch, getState) => {
                 "Loading colors"
             );
         }
+    }
+};
+
+export const createColor = (payload) => async (dispatch) => {
+    dispatch(createColorRequested());
+    try {
+        const { content } = await colorsService.create(payload);
+        dispatch(createColorSuccess(content));
+        NotificationManager.info("Цвет добавлен");
+    } catch (error) {
+        dispatch(createColorRequestFailed());
+        NotificationManager.error(error.message.toString(), "Create products");
     }
 };
 

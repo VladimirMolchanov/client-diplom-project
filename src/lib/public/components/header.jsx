@@ -20,7 +20,7 @@ const Header = () => {
         }
         window.addEventListener("scroll", scrollHeader);
 
-        return () => {
+        return function () {
             window.removeEventListener("scroll", scrollHeader);
         };
     }, []);
