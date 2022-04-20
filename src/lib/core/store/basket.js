@@ -31,12 +31,23 @@ const basketSlice = createSlice({
                 state.entities = [...state.entities, newProduct];
             }
             localStorageService.set("basket", JSON.stringify(state.entities));
+        },
+        countProduct: (state, action) => {
+            const index = state.entities.findIndex(
+                (i) => i._id === action.payload._id
+            );
+
+            if (index !== -1) {
+                state.entities[index].count = action.payload.value;
+            }
+
+            localStorageService.set("basket", JSON.stringify(state.entities));
         }
     }
 });
 
 const { reducer: basketReducer, actions } = basketSlice;
-const { addProduct, getStorageBasket, deleteProduct } = actions;
+const { addProduct, getStorageBasket, deleteProduct, countProduct } = actions;
 
 export const loadBasketList = () => (dispatch) => {
     dispatch(getStorageBasket());
@@ -47,6 +58,10 @@ export const deleteBasketProduct = (id) => (dispatch) => {
 
 export const addBasketProduct = (product) => (dispatch) => {
     dispatch(addProduct(product));
+};
+
+export const countedProduct = (count) => (dispatch) => {
+    dispatch(countProduct(count));
 };
 
 export const getBasket = () => (state) => state.basket.entities;

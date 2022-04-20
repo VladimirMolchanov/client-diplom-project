@@ -1,6 +1,10 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteBasketProduct, getBasket } from "../../core/store/basket";
+import {
+    countedProduct,
+    deleteBasketProduct,
+    getBasket
+} from "../../core/store/basket";
 
 const Basket = () => {
     const dispatch = useDispatch();
@@ -13,8 +17,12 @@ const Basket = () => {
         dispatch(deleteBasketProduct(id));
     };
 
+    const handleChange = ({ target }) => {
+        dispatch(countedProduct({ _id: target.name, value: target.value }));
+    };
+
     return (
-        <section className="basket section">
+        <section className="basket section basket__page">
             <div className="basket__container container">
                 <h2 className="section__title section__title-gradient text-left">
                     Корзина
@@ -65,6 +73,8 @@ const Basket = () => {
                                                 <input
                                                     type="number"
                                                     value={product.count}
+                                                    name={product._id}
+                                                    onChange={handleChange}
                                                 />
                                             </td>
                                             <td>
