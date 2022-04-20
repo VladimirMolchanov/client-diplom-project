@@ -39,18 +39,28 @@ http.interceptors.response.use(
         return res;
     },
     (error) => {
-        const expectedErrors =
-            error.response &&
-            error.response.status >= 400 &&
-            error.response.status < 500;
-        if (error.response && error.response.status === 401) {
-            localStorageService.removeAuthData();
-            history.push("/login");
-        }
-        if (!expectedErrors) {
-            console.log(error);
-            // Вывод ошибки запроса на публичную часть
-            NotificationManager.error(error.toString());
+        if (!error.response) {
+            // network error
+            history.push("/500");
+        } else {
+            // http status code
+            const expectedErrors =
+                error.response &&
+                error.response.status >= 400 &&
+                error.response.status < 500;
+
+            if (error.response && error.response.status === 401) {
+                localStorageService.removeAuthData();
+                history.push("/login");
+            }
+
+            if (!expectedErrors) {
+                if (error.message === "Network Error") {
+                    history.push("/NetworkError");
+                }
+                // Вывод ошибки запроса на публичную часть
+                NotificationManager.error(error.toString());
+            }
         }
         return Promise.reject(error);
     }

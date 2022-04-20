@@ -10,16 +10,18 @@ import Main from "./lib/public/layouts/main";
 import "react-notifications/lib/notifications.css";
 import "./assets/css/public.sass";
 import "./assets/css/core/index.scss";
+import ErrorLayout from "./lib/public/layouts/errorLayout";
 
 function App() {
     return (
         <>
             <AppLoader>
                 <Switch>
+                    <Route path="/500" component={ErrorLayout} />
                     <ProtectedRoute path="/admin/" component={IndexAdmin} />
                     <Route path="/login/:type?" component={Login} />
                     <Route path="/logout" component={LogOut} />
-                    <Route path="/" component={Main} />
+                    <Route path="/" exact component={Main} />
                     <Redirect to="/" />
                 </Switch>
             </AppLoader>
