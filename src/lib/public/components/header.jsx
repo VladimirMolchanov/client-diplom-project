@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Logo from "../../../assets/img/logo.png";
 import { getBasket } from "../../core/store/basket";
+import confirm from "../../../config.json";
 
 const Header = () => {
     const basket = useSelector(getBasket());
@@ -29,7 +29,7 @@ const Header = () => {
         <header className="header" id="header">
             <nav className="nav container">
                 <Link to="/" className="nav__logo">
-                    <img src={Logo} alt="Logo" />
+                    <img src={confirm.assetsEndpoint + "/assets/image/logo.png"} alt="Logo" />
                 </Link>
 
                 <div className="nav__menu">
