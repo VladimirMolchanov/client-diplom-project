@@ -1,4 +1,4 @@
 {
-  "assetsEndpoint": "http://localhost:8080/",
-  "apiEndpoint": "http://localhost:8080/api/"
+  "assetsEndpoint": "http://188.68.222.21:8080/",
+  "apiEndpoint": "http://188.68.222.21:8080/api/"
 }
